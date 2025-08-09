@@ -102,3 +102,7 @@ main {
     box-sizing: border-box;
     padding: 3px;
 }
+
+.video-controller {
+    margin-bottom: 5px;
+}

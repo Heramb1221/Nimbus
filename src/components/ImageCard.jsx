@@ -21,6 +21,8 @@ const ImageCard = () => {
 
         <button>↓ download</button>
       </div>
+
+      <input value={""} placeholder="Start typing to change image"/>
     </article>
   )
 }
