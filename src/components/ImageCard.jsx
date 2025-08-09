@@ -1,6 +1,27 @@
+import { CldImage } from "next-cloudinary"
+
 const ImageCard = () => {
   return (
-    <div>ImageCard</div>
+    <article className="card">
+      <div className="title-container">
+        <h4><span className="emoji">ᝰ</span>{""}</h4>
+        <h4>⫶</h4>
+      </div>
+      <CldImage />
+      <div className="controls-container">
+        <div className="control-container">
+          <input type="checkbox" id="background" name="background"/>
+          <label>no background</label>
+        </div>
+
+        <div className="control-container">
+          <input type="checkbox" id="greyscale" name="greyscale"/>
+          <label>greyscale</label>
+        </div>
+
+        <button>↓ download</button>
+      </div>
+    </article>
   )
 }
 
