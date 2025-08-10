@@ -1,31 +1,86 @@
 import { CldVideoPlayer } from "next-cloudinary"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import {saveAs } from "file-saver"
 
-const VideoCard = () => {
+const VideoCard = ({ asset }) => {
+    const { public_id, display_name } = asset
+    const [isLoading, setIsLoading] = useState(true)
+    const [ retries, setRetries] = useState(0)
+    const [ errorOccurred, setErrorOccurred] = useState(false)
 
-  const [isLoading, setIsLoading] = useState(false)
+    const downloadOGVideo = () => {
+        const vidSrc = asset.url
+        saveAs(vidSrc, display_name)
+    }
 
-  return (
-    <article className="card">
-      <div className="title-container">
-        <h4><span className="emoji">▶</span>{""}</h4>
-        <h4>⫶</h4>
-      </div>
+    const handleVideoError = (err) => {
+        if (err?.player?.videojs?.error_?.statusCode === 423) {
+            if (!errorOccurred) {
+                setErrorOccurred(true)
+                setIsLoading(true)
+                setRetries((prev) => prev + 1)
+                console.log("Retrying video load...")
+            }
+        }
+    }
 
-      {isLoading && <p>Loading...</p>}
+    const handleMetaDataLoad = () => {
+        setIsLoading(false)
+        setErrorOccurred(false)
+    }
 
-        <div className="video-container" style={{visibility:isLoading? "hidden" : "visible"}}>
-          {/* <CldVideoPlayer/> */}
-        </div>
+    useEffect(() => {
+        if (errorOccurred) {
+            const intervalId = setInterval(() => {
+                setRetries((prev) => prev + 1)
+            }, 5000)
 
-        <div className="controls-container">
-          <div className="control-container">
-            <button>download original</button>
-          </div>
-        </div>
+            return () => clearInterveral(intervalId)
+        }
+    }, [errorOccurred])
 
-    </article>
-  )
+    useEffect(() => {
+        if ( retries > 0 && !isLoading) {
+            setIsLoading(false)
+        }
+    }, [retries])
+
+    return (
+        <article className="card">
+            <div className="title-container">
+                <h4><span className="emoji">▶</span>{display_name}</h4>
+                <h4>⫶</h4>
+            </div>
+
+            {isLoading && <p>Loading...</p>}
+
+            <div className="video-container" 
+                 style={{ visibility: isLoading ? "hidden" : "visible"}}
+            >
+                <CldVideoPlayer
+                    src={public_id}
+                    id={public_id}
+                    width="300"
+                    height="300"
+                    alt={display_name}
+                    transformation={{
+                        width: 300,
+                        height: 300,
+                        crop: "fill",
+                        gravity: "auto"
+                    }}
+                    onMetadataLoad={handleMetaDataLoad}
+                    onError={handleVideoError}
+
+                />
+            </div>
+
+            <div className="controls-container">
+                <div className="control-container">
+                    <button onClick={downloadOGVideo}>↓ download original</button>
+                </div>
+            </div>
+        </article>
+    )
 }
-
 export default VideoCard

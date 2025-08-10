@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,300&display=swap');
 
 * {
-    font-family: "Poppins", "Tahoma", "sans-serif";
+    font-family: Poppins, Tahoma, sans-serif;
     font-weight: 300;
-    color: rgb(40, 40, 40)
+    color: rgb(40,40,40);
 }
 
 html, body {
@@ -13,6 +13,16 @@ html, body {
 
 h1 {
     padding: 0 0 0 10px;
+    margin: 0;
+}
+
+h2 {
+    padding: 20px;
+    font-size: 28px;
+}
+
+h4 {
+    font-size: 20px;
     margin: 0;
 }
 
@@ -42,7 +52,7 @@ main {
 }
 
 .main-search {
-    background-color: rgb(240, 244, 248);
+    background-color: rgb(240,244,248);
     border: none;
     font-size: 20px;
     padding: 10px 30px;
@@ -69,6 +79,7 @@ main {
 
 .emoji {
     color: rgb(85, 85, 246);
+    margin-right: 7px;
 }
 
 .control-container {
@@ -86,9 +97,9 @@ main {
     margin-top: 2px;
 }
 
-.controls-container{
+.controls-container {
     display: flex;
-    justify-items: space-between;
+    justify-content: space-between;
     height: 29px;
 }
 
@@ -103,6 +114,43 @@ main {
     padding: 3px;
 }
 
-.video-controller {
+.video-container {
     margin-bottom: 5px;
+}
+
+.side-bar {
+    width: 400px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.new-button {
+    padding: 22px;
+    margin: 10px 30px;
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    font-size: 18px;
+    box-shadow: rgba(50,50,50,93, 0.25) 0 2px 5px -1px, rgba(0,0,0,0.3) 0 1px 3px -1px;
+}
+
+.new-button:active {
+    background-color: rgb(236, 238, 241);
+    box-shadow: inset rgba(0,0,0,0.1) 1px 1px 0,  inset rgba(0,0,0,0.7) 0 -1px 0,
+}
+
+.uploads-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 330px);
+    gap: 20px;
+    justify-content: center;
+}
+
+li {
+    padding: 10px;
+    font-size: 18px;
+    list-style-type: none;
 }
