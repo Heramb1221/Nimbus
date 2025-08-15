@@ -2,7 +2,7 @@ import Head from "next/head"
 import { useState, useEffect } from "react"
 import Header from "@/components/Header"
 import Dashboard from "@/components/Dashboard"
-import SideBar from "@/components/SideBar"
+import Sidebar from "@/components/Sidebar"
 
 
 const Home = () => {
@@ -37,7 +37,7 @@ const Home = () => {
       </Head>
       <Header/>
       <div className="main-container">
-        <SideBar onHandleNewUpload={onHandleNewUpload}/>
+        <Sidebar onHandleNewUpload={onHandleNewUpload}/>
         <Dashboard assets={assets} searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
       </div>
     </>
